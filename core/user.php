@@ -6,4 +6,32 @@
  * Time: 16:59
  */
 
-$user = [];
+$user = [
+    [
+        "adsoyad"=>"ahmet soyad",
+        "username" => "ahmet_3",
+        "password" => "123456abc"
+    ]
+];
+
+function login($username='', $password='', $user=[])
+{
+    $login = 0;
+    foreach ($user as $key=>$value){
+        if($key=="username"){
+            if($value==$username){
+                $login = 1;
+            }
+            else
+                $login = 0;
+        } elseif ($key=="password"){
+            if($value==$password){
+                $login = 1;
+            }
+            else
+                $login = 0;
+        }
+    }
+
+    return $login;
+}

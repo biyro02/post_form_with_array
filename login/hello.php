@@ -5,9 +5,6 @@
  * Date: 13.10.2018
  * Time: 15:48
  */
+echo $message;
+
 ?>
-
-<div class="py-3">
-    Ben hello.php sayfasıyım
-</div>
-
