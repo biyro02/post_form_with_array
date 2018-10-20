@@ -20,7 +20,7 @@ if(isset($_POST["submit"])){
             }
         } else {
             $login = 3;
-            $message = "Kullanıcı adı ve ya şifre boş bırakılamaz";
+            $message = "Kullanıcı adı veya şifre boş bırakılamaz";
         }
     } else{
         $login = 4;

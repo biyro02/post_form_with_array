@@ -32,6 +32,15 @@ function login($username='', $password='', $user=[])
                 $login = 0;
         }
     }
+    if($login){
+        if(!isset($_SESSION['login'])){
+            session_start();
+            $_SESSION['login'] = $login;
+            $_SESSION['username'] = $username;
+            setcookie('username', $username, time()+60*60*24);
+            $_COOKIE['username'] = $username;
+        }
+    }
 
     return $login;
 }
