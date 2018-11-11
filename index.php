@@ -5,6 +5,7 @@
  * Date: 13.10.2018
  * Time: 13:48
  */
+
 defined('env', 'local');
 include "config/configuration.php";
 include "config/connection.php";
