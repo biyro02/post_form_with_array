@@ -6,7 +6,7 @@
  * Time: 13:48
  */
 
-defined('env', 'local');
+define('env', 'local');
 include "config/configuration.php";
 include "config/connection.php";
 include "core/pages.php";

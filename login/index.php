@@ -6,6 +6,10 @@
  * Time: 16:24
  */
 
+include __DIR__."/../config/configuration.php";
+include __DIR__."/../config/connection.php";
+include __DIR__."/core/functions.php";
+
 include __DIR__."/core/login.php";
 include __DIR__."/core/logpages.php";
 

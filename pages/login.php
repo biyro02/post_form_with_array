@@ -8,11 +8,19 @@
 
 $login = 0;
 $message = "Hoşgeldiniz, lütfen oturum açma bilgilerinizi giriniz.";
+$log[0] = getRealIpAddr();
+$log[1] = 24;
+$log[3] = date('Y-m-d H:i:s');
 if(isset($_POST["submit"])){
     if(isset($_POST['username']) && isset($_POST['password'])){
-        if(!empty($_POST['username'])&&!empty($_POST['password']) && strlen($_POST['password'])>7){
-            if(login($_POST['username'], $_POST['password'], $user[0])){
+        if(!empty($_POST['username'])&&!empty($_POST['password']) && strlen($_POST['password'])>5){
+            $stmt = $db->prepare("SELECT * FROM users WHERE user_name= ?");
+            $stmt->execute([$_POST['username']]);
+            $users = $stmt->fetchAll();
+            $log[1] = $users[0]['id'];
+            if(login($_POST['username'], md5($_POST['password']), $users[0])){
                 $login = 1;
+                $log[3]=null;
                 $message = "Hoşgeldiniz sayın ".$user[0]['username'];
             } else{
                 $login = 2;
@@ -27,6 +35,20 @@ if(isset($_POST["submit"])){
         $message = "Beklenmedik hata oluştu.";
         $alert = 1;
     }
+    $log[2]=$login;
+    var_dump($log);
+    $sql= " INSERT INTO login(ip, user_id, try_id, logout_at)
+            VALUES( ?, ?, ?, ?)";
+    $logged = $db->prepare($sql);
+    $result = $logged->execute($log);
+    if($login){
+        $sql = "SELECT id FROM login WHERE user_id= ? ORDER BY id DESC LIMIT 1";
+        $logggg = $db->prepare($sql);
+        $logggg->execute([$log[1]]);
+        $log_id = $logggg->fetchAll();
+        $_SESSION['login_id'] = $log_id[0]['id'];
+    }
+    var_dump($result);
 } else{
     $login = 0;
 }
